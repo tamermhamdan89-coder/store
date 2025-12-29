@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>متجر الأحذية — الصفحة الرئيسية</title>
+
+  <!-- Arabic webfont (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #F5EFE6;
+      --accent: #A67B5B;
+      --dark: #502A19;
+      --card: #FFFFFF;
+      --muted: #7A5A48;
+      --radius: 12px;
+      --max-width: 1200px;
+    }
+
+    /* Reset & base */
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Cairo", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* container */
+    .container{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header / Nav */
+    header{
+      background:var(--accent);
+      color:#fff;
+      position: sticky;
+      top:0;
+      z-index:50;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size: clamp(16px, 3vw, 20px);
+    }
+    .brand .logo{
+      width:44px;
+      height:44px;
+      background:var(--dark);
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      font-weight:700;
+    }
+
+    nav.desktop{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    nav.desktop a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      padding:8px 10px;
+      border-radius:8px;
+      transition:background .18s;
+      font-size: 15px;
+    }
+    nav.desktop a:hover{ background: rgba(255,255,255,0.08) }
+
+    /* Mobile menu */
+    .menu-btn{
+      display:none;
+      background:transparent;
+      border:0;
+      color:#fff;
+      font-size:22px;
+      cursor:pointer;
+      padding:8px;
+    }
+
+    /* Hero */
+    .hero{
+      background: linear-gradient(180deg, #E9D7C1 0%, #DCC6AA 100%);
+      padding: clamp(28px, 8vw, 72px) 0;
+      text-align:center;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size: clamp(20px, 6vw, 36px);
+      color:var(--dark);
+    }
+    .hero p{ margin:0 0 18px; color:var(--muted) }
+
+    .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+    .btn{
+      background:var(--dark);
+      color:#fff;
+      border:0;
+      padding:10px 18px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--dark);
+      border:2px solid rgba(80,42,25,0.08);
+    }
+
+    /* Products grid */
+    .section{
+      padding: clamp(20px, 4vw, 48px) 0;
+      text-align:center;
+    }
+    .section h2{ margin:0 0 18px; font-size:20px; color:var(--dark) }
+    .products{
+      display:grid;
+      gap:16px;
+      grid-template-columns: 1fr;
+      justify-items:center;
+    }
+    .product-card{
+      width:100%;
+      max-width:260px;
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      text-align:center;
+      transition:transform .18s, box-shadow .18s;
+    }
+    .product-card:hover{ transform: translateY(-6px); box-shadow: 0 10px 24px rgba(0,0,0,0.08) }
+    .product-card img{
+      width:100%;
+      height:170px;
+      object-fit:cover;
+      border-radius:10px;
+    }
+    .product-card h3{ margin:10px 0 6px; font-size:16px; color:var(--dark) }
+    .price{ color:var(--muted); font-weight:600 }
+
+    /* Payment & contact */
+    .info-grid{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .card{
+      background:#fff;
+      padding:14px;
+      border-radius:12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      max-width:360px;
+      text-align:right;
+    }
+
+    footer{
+      background:var(--accent);
+      color:#fff;
+      padding:16px 0;
+      margin-top:18px;
+      text-align:center;
+    }
+
+    /* WhatsApp floating button (optional) */
+    .whatsapp{
+      position:fixed;
+      bottom:20px;
+      left:20px; /* left because dir=rtl */
+      background:#25D366;
+      color:#fff;
+      border-radius:50%;
+      width:56px;
+      height:56px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 8px 26px rgba(37,211,102, .18);
+      text-decoration:none;
+      z-index:60;
+    }
+
+    /* Responsive breakpoints */
+    @media (min-width:480px){
+      .products{ grid-template-columns: repeat(2, minmax(0,1fr)); justify-items:center; }
+      .menu-btn{ display:inline-flex }
+      nav.desktop{ display:none } /* hide desktop links on small screens, show via menu */
+    }
+
+    @media (min-width:900px){
+      .products{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+      nav.desktop{ display:flex }
+      .menu-btn{ display:none }
+    }
+
+    /* Desktop layout for header */
+    @media (min-width:720px){
+      .nav-inner{ padding:14px 0 }
+    }
+
+    /* Simple accessible mobile menu */
+    .mobile-nav{
+      display:none;
+      background:rgba(0,0,0,0.03);
+      padding:8px 12px;
+    }
+    .mobile-nav a{
+      display:block;
+      color:var(--dark);
+      padding:10px 8px;
+      text-decoration:none;
+      border-radius:8px;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+    .mobile-nav.show{ display:block }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-inner" role="navigation" aria-label="القائمة الرئيسية">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">أ</div>
+        <div>
+          متجر الأحذية
+          <div style="font-size:12px;opacity:.85;font-weight:400">أحذية للرجال، السيدات والأطفال</div>
+        </div>
+      </div>
+
+      <!-- Desktop nav -->
+      <nav class="desktop" aria-label="روابط">
+        <a href="#hero">الرئيسية</a>
+        <a href="#products">المنتجات</a>
+        <a href="#payment">طرق الدفع</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="فتح القائمة">
+        ☰
+      </button>
+    </div>
+
+    <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <a href="#hero">الرئيسية</a>
+      <a href="#products">المنتجات</a>
+      <a href="#payment">طرق الدفع</a>
+      <a href="#contact">تواصل معنا</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <h1>أحذية لكل أفراد العائلة</h1>
+      <p>استعرض تشكيلتنا المميزة للرجال، السيدات، والأطفال مع توصيل سريع وخيارات دفع مريحة داخل قطاع غزة.</p>
+      <div class="cta-row">
+        <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تصفح المنتجات</button>
+        <a class="btn ghost" href="#contact">اسألنا عبر الواتساب</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="section">
+    <div class="container">
+      <h2>منتجات مميزة</h2>
+      <div class="products" aria-live="polite">
+        <article class="product-card" aria-labelledby="p1-title">
+          <img src="https://via.placeholder.com/400x300?text=Men+Shoe" alt="حذاء رجالي أنيق">
+          <h3 id="p1-title">حذاء رجالي</h3>
+          <p class="price">سعر: 120 شيكل</p>
+          <button class="btn" onclick="addToCart('حذاء رجالي')">اطلب الآن</button>
+        </article>
+
+        <article class="product-card" aria-labelledby="p2-title">
+          <img src="https://via.placeholder.com/400x300?text=Women+Shoe" alt="حذاء حريمي">
+          <h3 id="p2-title">حذاء حريمي</h3>
+          <p class="price">سعر: 110 شيكل</p>
+          <button class="btn" onclick="addToCart('حذاء حريمي')">اطلب الآن</button>
+        </article>
+
+        <article class="product-card" aria-labelledby="p3-title">
+          <img src="https://via.placeholder.com/400x300?text=Kids+Shoe" alt="حذاء أطفال">
+          <h3 id="p3-title">حذاء أطفال</h3>
+          <p class="price">سعر: 80 شيكل</p>
+          <button class="btn" onclick="addToCart('حذاء أطفال')">اطلب الآن</button>
+        </article>
+
+        <!-- يمكنك إضافة بطاقات منتجات إضافية هنا بنفس الصيغة -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT -->
+  <section id="payment" class="section">
+    <div class="container">
+      <h2>طرق الدفع</h2>
+      <div class="info-grid">
+        <div class="card">
+          <strong>محفظة جوال (Jawwal Pay)</strong>
+          <p>الدفع متاح عبر Jawwal Pay داخل قطاع غزة بسهولة وسرعة.</p>
+        </div>
+        <div class="card">
+          <strong>الدفع عند الاستلام</strong>
+          <p>خيار الدفع عند الاستلام متاح للطلبات المحلية.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>تواصل معنا</h2>
+      <div class="info-grid" style="justify-content:center;">
+        <div class="card" style="text-align:right">
+          <p>واتساب: <a href="https://wa.me/97059XXXXXXXX" style="color:var(--dark);text-decoration:none;font-weight:700">059XXXXXXXX</a></p>
+          <p>إنستجرام: <a href="https://instagram.com/yourstore" style="color:var(--dark);text-decoration:none;font-weight:700">@yourstore</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      حقوق النشر © متجر الأحذية 2025
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp quick link -->
+  <a class="whatsapp" href="https://wa.me/970590000000" aria-label="راسلنا على واتساب" target="_blank" rel="noopener">
+    و
+  </a>
+
+  <script>
+    // Mobile menu toggle
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      const nav = document.getElementById('mobileNav');
+      btn && btn.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('show');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        nav.setAttribute('aria-hidden', String(!isOpen));
+      });
+    })();
+
+    // Simple "add to cart" demo (replace with real integration)
+    function addToCart(name){
+      // For demo, show a temporary toast (alert fallback)
+      if ('Notification' in window){
+        alert(name + " أُضيف إلى سلة الطلبات (تجريبي)");
+      } else {
+        alert(name + " أُضيف إلى سلة الطلبات (تجريبي)");
+      }
+    }
+
+    // Smooth scroll for internal links (improves UX on some browsers)
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth'});
+          // close mobile nav if open
+          const nav = document.getElementById('mobileNav');
+          if(nav && nav.classList.contains('show')) nav.classList.remove('show');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
